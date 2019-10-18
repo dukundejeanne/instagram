@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect,get_object_or_404
 # from .models import Image,Profile,Comment,NewsLetterRecipients
 # from django.http import HttpResponse,Http404,HttpResponseRedirect
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 # from django.core.urlresolvers import reverse
 # from django.contrib.auth.models import User
 # from .forms import NewImageForm,UpdatebioForm,CommentForm
 # from .email import send_welcome_email
 # from .forms import NewsLetterForm
-
+@login_required(login_url='/accounts/login/')
 def home_images(request):
     return render(request,'index.html')
 
