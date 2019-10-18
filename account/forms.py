@@ -6,6 +6,9 @@ class NewImageForm(forms.ModelForm):
     class Meta:
         model=Image
         exclude=['user','likes']
+        widgets = {
+            'tags': forms.CheckboxSelectMultiple(),
+        }
 
 class CommentForm(forms.ModelForm):
     class Meta:

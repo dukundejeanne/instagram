@@ -17,20 +17,20 @@
 
 
 <div class="container">
-
-  <div class="card-columns">
-
     {% for image in pictures %}
-    <div class="card border-secondary"><a href="{% url 'image' image.id %}">
-        <img src="{{image.image.url}}" data-target="#imageModal{{image.id}}" data-toggle="modal" alt="" class="img-fluid" id="eachimage"
-          size="100px200"></a>
- <p style="font-family: 'Oswald', sans-serif;"> Caption : {{ image.description}}</p>
-      <p style="font-family: 'Oswald', sans-serif;">Posted by : {{ image.user}}</p>
+    <div class="panel-group">
+        <div class="panel panel-default">
+                <p class="panel-header" style="font-family:  sans-serif;">{{ image.user}}</p>
+        <img src="{{image.image.url}}" class="panel-body" data-toggle="modal" alt="pict" class="img-fluid" id="eachimage"
+          size="100px200">
+ <p class="panel-footer" style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
+      
 
     </div>
+</div>
     {% endfor %}
   </div>
-</div>
+
 <div class="jumbotron text-center mt-0" style="background-color:white;">
 
   <form  action="{%url 'homePage'%}" method="post">
@@ -45,18 +45,6 @@
     <div class="col-md-12">
       <div class="footer text-center">
         <ul id="footer1">
-          <li>ABOUT US</li>
-          <li>SUPPORT</li>
-          <li>PRESS</li>
-          <li>API</li>
-          <li>JOBS</li>
-          <li>PRIVACY</li>
-          <li>TERMS</li>
-          <li>DIRECTORY</li>
-          <li>PROFILES</li>
-          <li>HASHTAGS</li>
-          <li>LANGUAGE</li>
-          <br>
 
           <li style="font-size:10px;"> <strong>Dukunde Marie Jeanne © 2019</strong></li>
         </ul>

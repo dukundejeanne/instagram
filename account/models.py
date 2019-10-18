@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 # Create your models here.
 class Image(models.Model):
     name=models.CharField(max_length=30)
@@ -7,6 +8,7 @@ class Image(models.Model):
     image=models.ImageField(upload_to='images_galleries/')
     user=models.ForeignKey(User,on_delete=models.CASCADE, blank=True,related_name="images")
     comments=models.TextField(blank=True)
+    post = HTMLField(null=True)
     # comments=models.ForeignKey(Comment)
     likes=models.IntegerField(default=0)
     # category=models.ForeignKey(Category)
