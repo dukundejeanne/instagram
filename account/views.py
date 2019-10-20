@@ -81,12 +81,12 @@ def image(request,id):
 @login_required(login_url='/accounts/login/')
 def profilemy(request,username=None):
     current_user=request.user
-    
+    pictures=Image.objects.filter(user=current_user)
     if not username:
         username=request.user.username
         images=Image.objects.filter(name=username)
         # proc_img=Profile.objects.filter(user=current_user).first()
-    return render(request,'profilemy.html',locals())
+    return render(request,'profilemy.html',locals(),{"pictures":pictures})
 
 @login_required(login_url='/accounts/login/')
 def profile_edit(request):
