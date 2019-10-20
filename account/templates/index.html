@@ -18,18 +18,23 @@
 
 <div class="container">
     {% for image in pictures %}
-    
-    <div class="card-header" style="width: 90%;">
-      
-        
-                <p  style="font-family:  sans-serif;">{{ image.user}}</p>
-                <div class="card-body">
+    <div class="card" style="width: 35em;margin-top:6%;margin-left: 20%;">
+   
+        <span style="font-family:  sans-serif;"><img  src="{{user.profile.profile_pic.url}}" alt="Profile" class="img-responsive img_profile" >{{ image.user}}</span>
+            
              
-        <img src="{{image.image.url}}" data-toggle="modal" alt="pict" class="img-fluid" id="eachimage" style="width: 100%;">
- <p class="card-footer" style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
-      
-
+        <img src="{{image.image.url}}" height="400" alt="pict" class="img-responsive" id="eachimage" >
+        <div class="card-body">
+         <p><i class="fa fa-heart"></i> <i class="fa fa-comment"></i></p> 
+ <p  style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
+ <hr>
+ <input class="form-control" type="text" value="" id="link" placeholder="add comment">
+ 
+ 
+ 
 </div>
+
+
 </div>
     {% endfor %}
   </div>
@@ -56,4 +61,12 @@
 
     </div>
   </div>
+  <style>
+    .img_profile{
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius:50%;
+    }
+  </style>
 {% endblock %}

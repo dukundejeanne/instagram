@@ -103,14 +103,27 @@ def user_list(request):
     return render(request,'user_list.html',context)
 
      
+# def search_results(request):
+
+#     if 'profile_pic' in request.GET and request.GET["profile_pic"]:
+#         search_iterm = request.GET.get("profile_pic")
+#         searched = Profile.search(search_iterm)
+#         message = f"{search_iterm}"
+
+#         return render(request, 'all_news/search.html',{"message":message,"profile": searched})
+
+#     else:
+#         message = "You haven't searched for any term"
+#         return render(request, 'all_news/search.html',{"message":message})
+
 def search_results(request):
 
-    if 'profile_pic' in request.GET and request.GET["profile_pic"]:
-        search_iterm = request.GET.get("profile_pic")
-        searched = Profile.search(search_iterm)
-        message = f"{search_iterm}"
+    if 'article' in request.GET and request.GET["article"]:
+        search_term = request.GET.get("article")
+        searched_articles = Profile.search(search_term)
+        message = f"{search_term}"
 
-        return render(request, 'all_news/search.html',{"message":message,"profile": searched})
+        return render(request, 'all_news/search.html',{"message":message,"articles": searched_articles})
 
     else:
         message = "You haven't searched for any term"
