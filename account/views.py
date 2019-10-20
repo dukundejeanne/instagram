@@ -38,6 +38,7 @@ def home_images(request):
             send_welcome_email(name,email)
             HttpResponseRedirect('home_images')
     return render(request,'index.html',{"pictures":pictures,'letterForm':form})
+
 @login_required(login_url='/accounts/login/')
 def new_image(request):
     current_user=request.user
@@ -47,22 +48,70 @@ def new_image(request):
             image=form.save(commit=False)
             image.user=current_user
             image.save()
-            return redirect('homePage')
-        else:
-            form=NewImageForm()
-        return render(request,'registration/new_image.html',{"form":form})
+            # HttpResponseRedirect('hamePage')
+        return redirect('homePage')
+    else:
+        form=NewImageForm()
+    return render(request,'registration/new_image.html',{"form":form})
 
-# @login_required(login_url='/accounts/login/')
-# def new_image(request):
-#     current_user = request.user
-#     if request.method == 'POST':
-#         form = NewImageForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             image = form.save(commit=False)
-#             image.user = current_user
-#             image.save()
-#         return redirect('homePage')
 
-#     else:
-#         form = NewImageForm()
-#     return render(request, 'registration/new_image.html', {"form": form})
+def image(request,id):
+    try:
+        image=Image.objects.get(pk=id)
+    except DoesNotExist:
+        raise Http404()
+
+    current_user=request.user
+    comments=Comment.get_comment(Comment,id)
+    if request.method=='POST':
+        form =CommentForm(request.POST)
+        if form.is_valid():
+            comment=form.cleaned_data_data['comments']
+            comment=Comment()
+            comment.image=image
+            comment.user=current_user
+            comment.comments=comments
+            comment.save()
+    else:
+        form=CommentForm()
+    return render(request,'image.html',{"image":image,"form":form,"comments":comments})
+
+@login_required(login_url='/accounts/login/')
+def profilemy(request,username=None):
+    if not username:
+        username=request.user.username
+        images=Image.objects.filter(name=username)
+        return render(request,'profilemy.html',locals())
+
+@login_required(login_url='/accounts/login/')
+def profile_edit(request):
+    current_user=request.user
+    if request.method=='POST':
+        form=UpdatebioForm(request.POST,request.FILES)
+        if form.is_valid():
+            image=form.save(commit=False)
+            image.user=current_user
+            image.save()
+        return redirect('homePage')
+    else:
+        form=UpdatebioForm()
+    return render(request,'registration/profile_edit.html',{"form":form})
+
+def user_list(request):
+    user_list=User.objects.all()
+    context={'user_list':user_list}
+    return render(request,'user_list.html',context)
+
+     
+def search_results(request):
+
+    if 'profile_pic' in request.GET and request.GET["profile_pic"]:
+        search_iterm = request.GET.get("profile_pic")
+        searched = Profile.search(search_iterm)
+        message = f"{search_iterm}"
+
+        return render(request, 'all_news/search.html',{"message":message,"profile": searched})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'all_news/search.html',{"message":message})

@@ -2,25 +2,24 @@
 
  
  {% load static %}
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Charmonman|Kodchasan|Dancing+Script|Spirax" rel="stylesheet">
 
 <nav class="navbar bg-light ">
   <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'homePage' %}"><img src="{% static 'photos/instaicon1.jpg' %}" style="height:30px;width:36px;">
-      </a>
-      <a class="navbar-brand" id="victor" href="{% url 'homePage' %}">Instagram
+        <a class="navbar-brand" href="{% url 'homePage' %}">
+       <i class="fa fa-instagram"></i>
+    | Instagram
       </a>
     </div>
-    <div class="col-sm-6 col-md-6">
-
-    </div>
+   
 
 <!-- 
      Adding a search form  -->
     <div class="col-sm-4 col-md-4 navbar-right">
 
-      <form class="navbar-form" role="search" action="">
+      <form class="navbar-form" role="search" action="{% url 'search_results' %}">
 
         <div class="input-group">
           <input type="text" class="form-control mr-sm-4" placeholder="Search User" name="user">
@@ -30,9 +29,33 @@
         </div>
 
       </form>
+      <i class="far fa-heart"></i>
     </div>
     <!-- search form end -->
+ 
 
-
+  <div class="col-sm-6 col-md-6">
+      <a><i class="fa fa-comment"></i></a>
+      <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i>
+       
+                <span class="caret"></span>
+            </a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="{%url 'new_image'%}">upload</a>
+        </li>
+        <li>
+          <a href="{% url 'profilemy' %}">My Profile</a>
+        </li>
+        <li>
+          <a href="/accounts/password/change">Change Password</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+      </ul>
+   
   </div>
+
+</div>
 </nav> 

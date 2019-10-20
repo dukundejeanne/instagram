@@ -11,8 +11,7 @@ class Image(models.Model):
     post = HTMLField(null=True)
     # comments=models.ForeignKey(Comment)
     likes=models.IntegerField(default=0)
-    # category=models.ForeignKey(Category)
-    # photographer=models.ForeignKey(Photographer)
+   
     pub_date=models.DateTimeField(auto_now_add=True,null=True)
 
     # class Meta:

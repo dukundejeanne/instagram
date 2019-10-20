@@ -18,15 +18,18 @@
 
 <div class="container">
     {% for image in pictures %}
-    <div class="panel-group">
-        <div class="panel panel-default">
-                <p class="panel-header" style="font-family:  sans-serif;">{{ image.user}}</p>
-        <img src="{{image.image.url}}" class="panel-body" data-toggle="modal" alt="pict" class="img-fluid" id="eachimage"
-          size="100px200">
- <p class="panel-footer" style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
+    
+    <div class="card-header" style="width: 90%;">
+      
+        
+                <p  style="font-family:  sans-serif;">{{ image.user}}</p>
+                <div class="card-body">
+             
+        <img src="{{image.image.url}}" data-toggle="modal" alt="pict" class="img-fluid" id="eachimage" style="width: 100%;">
+ <p class="card-footer" style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
       
 
-    </div>
+</div>
 </div>
     {% endfor %}
   </div>
