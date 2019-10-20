@@ -27,6 +27,7 @@ def home_images(request):
     # else:
     pictures=Image.objects.all()
     current_user=request.user
+    myprof=Profile.objects.filter(id=current_user.id).first()
     comment=Comment.objects.filter(id=current_user.id).first()
     form=NewsLetterForm
     if request.method== 'POST':
@@ -38,7 +39,7 @@ def home_images(request):
             recipient.save()
             send_welcome_email(name,email)
             HttpResponseRedirect('home_images')
-    return render(request,'index.html',{"pictures":pictures,'letterForm':form,"comment":comment})
+    return render(request,'index.html',{"pictures":pictures,'letterForm':form,"comment":comment,"myprof":myprof})
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
@@ -80,11 +81,12 @@ def image(request,id):
 @login_required(login_url='/accounts/login/')
 def profilemy(request,username=None):
     current_user=request.user
-    proc_img=Image.objects.filter(user=current_user).first()
+    
     if not username:
         username=request.user.username
         images=Image.objects.filter(name=username)
-        return render(request,'profilemy.html',locals(),{"proc_img":proc_img})
+        # proc_img=Profile.objects.filter(user=current_user).first()
+    return render(request,'profilemy.html',locals())
 
 @login_required(login_url='/accounts/login/')
 def profile_edit(request):
