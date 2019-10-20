@@ -28,7 +28,12 @@
          <p><i class="fa fa-heart"></i> <i class="fa fa-comment"></i></p> 
  <p  style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
  <hr>
- <input class="form-control" type="text" value="" id="link" placeholder="add comment">
+          {% for com in image.comment_set.all %}
+          <p>{{com.comment}}</p>
+          {% endfor %}
+ 
+        <a><i class="fa fa-comment"></i>
+<input class="form-control" type="text" value="" id="link" placeholder="add comment"><button action="">post</button></a>
  
  
  
@@ -36,7 +41,7 @@
 
 
 </div>
-    {% endfor %}
+  {% endfor %}
   </div>
 
 <div class="jumbotron text-center mt-0" style="background-color:white;">
@@ -45,7 +50,7 @@
     {%csrf_token%}
 
     {% bootstrap_form letterForm  %}
-    <input type="submit" value="Subscribe To Instagram ">
+    <input type="submit" value="Subscribe here">
   </form>
 
 </div>

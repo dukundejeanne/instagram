@@ -26,7 +26,8 @@ def home_images(request):
     #     pictures=Image.search(request.GET.get('search_iterm'))
     # else:
     pictures=Image.objects.all()
-    minecomment=Comment.objects.filter(id=current_user.id).first()
+    current_user=request.user
+    comment=Comment.objects.filter(id=current_user.id).first()
     form=NewsLetterForm
     if request.method== 'POST':
         form=NewsLetterForm(request.POST or None)
@@ -37,7 +38,7 @@ def home_images(request):
             recipient.save()
             send_welcome_email(name,email)
             HttpResponseRedirect('home_images')
-    return render(request,'index.html',{"pictures":pictures,'letterForm':form,"minecomment":minecomment})
+    return render(request,'index.html',{"pictures":pictures,'letterForm':form,"comment":comment})
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
@@ -119,16 +120,7 @@ def add_comment(request,image_id):
         form=CommentForm()
     return render(request,'comment_form.html',{"form":form,"image_id":image_id})
 
-    if 'profile_pic' in request.GET and request.GET["profile_pic"]:
-        search_iterm = request.GET.get("profile_pic")
-        searched = Profile.search(search_iterm)
-        message = f"{search_iterm}"
 
-        return render(request, 'all_news/search.html',{"message":message,"profile": searched})
-
-    else:
-        message = "You haven't searched for any term"
-        return render(request, 'all_news/search.html',{"message":message})
 
 def search_results(request):
 

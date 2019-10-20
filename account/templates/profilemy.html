@@ -8,13 +8,27 @@
     <div class="col-md-4">
       <div class="content-section">
          <div class="media">
-           <img src="{{user.profile.profile_pic.url}}" alt="Profile" class="" style="width: 60%; height: 60%;">
+           <img src="{{user.profile.profile_pic.url}}" alt="Profile" class="img_profile" >
            <div class="media-body">
-             <h4 class="account-heading ml-4">{{user.username}}</h4><button class="btn btn-outline-primary"><a href="{% url 'profile_edit' %}" ></a>Edit Profile</button>
+             <div class="container-fluid">
+              <div class="d-flex align-items-baseline" style="height:150px">
+             <h4 class="account-heading ml-4">{{user.username}}</h4>
+             <button class="btn btn-outline-primary"><a href="{% url 'profile_edit' %}" ></a>Edit Profile</button>
+            </div>
+           
+             <!-- from w3 school -->
+                        
+             <div class="d-flex align-items-baseline " style="height:150px">
+                <p class="">Post</p>
+                <p class="p-2 ">Followers</p>
+                <p class="p-2 ">Following</p>
+              </div>
+              <!-- end -->
              <p class="text-secondary ml-4">Email:{{user.email}}</p>
              <p class="text-secondary ml-4">Bio:{{user.profile.bio}}</p>
              
            </div>
+          </div>
          </div>
          <form method="Post" enctype="multipart/form-data">
           {% csrf_token %}
@@ -30,6 +44,15 @@
       <div class="col-md-8"></div>
     </div>
   </div>
+  <style>
+      .img_profile{
+        vertical-align: middle;
+        width: 200px;
+        height: 200px;
+        border-radius:50%;
+      }
+     
+    </style>
   {% endblock %}
                 
                       

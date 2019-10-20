@@ -13,7 +13,10 @@ class Image(models.Model):
     likes=models.IntegerField(default=0)
    
     pub_date=models.DateTimeField(auto_now_add=True,null=True)
-
+    @classmethod
+    def get_all_images(cls):
+        images=cls.objects.all().prefetch_related('comments_set')
+        return images
   
     def save_image(self):
         self.save()
@@ -37,10 +40,7 @@ class Image(models.Model):
     #     pictures = cls.objects.filter(id=id).update(id=id)
     #     return pictures
 
-    @classmethod
-    def get_all_images(cls):
-        images=cls.objects.all().prefetch_related('comments_set')
-        return images
+  
     
     # @classmethod
     # def get_image_by_id(cls)
