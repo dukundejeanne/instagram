@@ -15,7 +15,7 @@ class Image(models.Model):
     pub_date=models.DateTimeField(auto_now_add=True,null=True)
     @classmethod
     def get_all_images(cls):
-        images=cls.objects.all().prefetch_related('comments_set')
+        images=cls.objects.all().prefetch_related('comment_set')
         return images
   
     def save_image(self):
@@ -75,8 +75,8 @@ class Profile(models.Model):
         else:
             return 0
     @classmethod
-    def search(cls,search_iterm):
-        profiles=cls.objects.filter(user__username__icontains=search_iterm)
+    def search(cls,username):
+        profiles=cls.objects.filter(user__username__icontains=username)
         return profiles
     def __str__(self):
         return self.user.username

@@ -1,6 +1,6 @@
 {% extends 'registration/base.html' %}
 {% load bootstrap4 %}
-
+{% load static %}
 {% block content %}
 
 <div class="container">
@@ -10,40 +10,35 @@
          <div class="media">
            <img src="{{user.profile.profile_pic.url}}" alt="Profile" class="img_profile" >
            <div class="media-body">
-             <div class="container-fluid">
-              <div class="d-flex align-items-baseline" style="height:150px">
+              <div class="bodd">
              <h4 class="account-heading ml-4">{{user.username}}</h4>
-             <button class="btn btn-outline-primary"><a href="{% url 'profile_edit' %}" ></a>Edit Profile</button>
+             <button class="btn btn-outline-primary"><a href="{% url 'profile_edit' %}" >Edit Profile</a></button><i class="fa fa-sun-o" style="font-size: 28px;"></i>
             </div>
-           
-             <!-- from w3 school -->
-                        
-             <div class="d-flex align-items-baseline " style="height:150px">
-                <p class="">Post</p>
-                <p class="p-2 ">Followers</p>
-                <p class="p-2 ">Following</p>
-              </div>
-              <!-- end -->
+            <div class="bod" style="margin-left: 3px;justify-content: space-around;;">
+              <p><strong>Post</strong></p>
+              <p><strong>{{user|length}} Followers</strong></p>
+              <p><strong>{{user|length}} Following</strong></p>
+            </div>
              <p class="text-secondary ml-4">Email:{{user.email}}</p>
              <p class="text-secondary ml-4">Bio:{{user.profile.bio}}</p>
              
            </div>
-          </div>
          </div>
-         <form method="Post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
-            
-            {% if current_user.profile == user.profile %}
-                    <a href="{% url 'profile_edit' %}" ><button class="btn btn-outline-primary">Edit Profile</button></a>
-                {% endif %}
-          </div>
-        </form>
+
+       
       </div>
       <div class="col-md-8"></div>
     </div>
   </div>
+  <hr>
+  <div class="row">
+    {% for user in proc_img %}
+    <div class="col-md-4" style="margin-right: 5%;">
+      <img src="{{user.image.url}}" height="300" class="img-responsive">
+    </div>
+    {% endfor %}
+  </div>
+
   <style>
       .img_profile{
         vertical-align: middle;
@@ -51,7 +46,10 @@
         height: 200px;
         border-radius:50%;
       }
-     
+      .bodd,.bod{
+       display: flex;
+       justify-content: space-between;
+      }
     </style>
   {% endblock %}
                 

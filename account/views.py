@@ -79,10 +79,12 @@ def image(request,id):
 
 @login_required(login_url='/accounts/login/')
 def profilemy(request,username=None):
+    current_user=request.user
+    proc_img=Profile.objects.filter(user=current_user).first()
     if not username:
         username=request.user.username
         images=Image.objects.filter(name=username)
-        return render(request,'profilemy.html',locals())
+        return render(request,'profilemy.html',locals(),{"proc_img":proc_img})
 
 @login_required(login_url='/accounts/login/')
 def profile_edit(request):
@@ -124,12 +126,12 @@ def add_comment(request,image_id):
 
 def search_results(request):
 
-    if 'article' in request.GET and request.GET["article"]:
-        search_term = request.GET.get("article")
-        searched_articles = Profile.search(search_term)
+    if 'username' in request.GET and request.GET["username"]:
+        search_term = request.GET.get("username")
+        searched_users = Profile.search(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all_news/search.html',{"message":message,"articles": searched_articles})
+        return render(request, 'all_news/search.html',{"message":message,"users": searched_users})
 
     else:
         message = "You haven't searched for any term"

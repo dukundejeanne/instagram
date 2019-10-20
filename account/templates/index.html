@@ -25,15 +25,16 @@
              
         <img src="{{image.image.url}}" height="400" alt="pict" class="img-responsive" id="eachimage" >
         <div class="card-body">
-         <p><i class="fa fa-heart"></i> <i class="fa fa-comment"></i></p> 
+         <p><i class="fa fa-heart">{{image.likes|length}}</i> <i class="fa fa-comment"></i></p> 
  <p  style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
  <hr>
           {% for com in image.comment_set.all %}
           <p>{{com.comment}}</p>
           {% endfor %}
- 
-        <a><i class="fa fa-comment"></i>
-<input class="form-control" type="text" value="" id="link" placeholder="add comment"><button action="">post</button></a>
+         
+ <a href="{% url 'comment' image.id %}">comment</a>
+        
+
  
  
  
