@@ -78,10 +78,10 @@ class Profile(models.Model):
     def search(cls,username):
         profiles=cls.objects.filter(user__username__icontains=username)
         return profiles
-     @classmethod
-    def search_by_name(cls,search_term):
-        photo=cls.objects.filter(category__photo_category__icontains=search_term)
-        return photo
+    # @classmethod
+    # def search_by_bio(cls,search_term):
+    #     photo=cls.objects.filter(category__photo_category__icontains=search_term)
+    #     return photo
     def __str__(self):
         return self.user.username
 
