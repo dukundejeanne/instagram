@@ -7,15 +7,14 @@ class Image(models.Model):
     description=models.TextField(max_length=30)
     image=models.ImageField(upload_to='images_galleries/')
     user=models.ForeignKey(User,on_delete=models.CASCADE, blank=True,related_name="images")
-    comments=models.TextField(blank=True)
+    # comments=models.TextField(blank=True)
     post = HTMLField(null=True)
     # comments=models.ForeignKey(Comment)
     likes=models.IntegerField(default=0)
    
     pub_date=models.DateTimeField(auto_now_add=True,null=True)
 
-    # class Meta:
-    #     ordering=('-id',)
+  
     def save_image(self):
         self.save()
     def delete_image_id(cls,id):
@@ -38,10 +37,10 @@ class Image(models.Model):
     #     pictures = cls.objects.filter(id=id).update(id=id)
     #     return pictures
 
-    # @classmethod
-    # def get_all_image(cls):
-    #     all_images=Image.objects.all()
-    #     return all_images
+    @classmethod
+    def get_all_images(cls):
+        images=cls.objects.all().prefetch_related('comments_set')
+        return images
     
     # @classmethod
     # def get_image_by_id(cls)
@@ -88,18 +87,18 @@ class Followers(models.Model):
     profile=models.ForeignKey(Profile)
 
 class Comment(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE,blank=True,related_name="user")
-    image=models.ForeignKey(Image,on_delete=models.CASCADE,related_name="comment")
-    comments=models.TextField()
+    posted_by=models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
+    comment_image=models.ForeignKey(Image,on_delete=models.CASCADE,null=True)
+    comment=models.CharField(max_length=20,null=True)
 
     def save_com(self):
         self.save()
 
     def get_comment(self,id):
-        commentes=Comment.objects.filter(image_id=id)
-        return commentes
+        comments=Comment.objects.filter(image_id=id)
+        return comments
     def __str__(self):
-        return self.user.comments
+        return self.posted_by
 
 class NewsLetterRecients(models.Model):
     name=models.CharField(max_length=30)

@@ -5,15 +5,15 @@ from django.forms import ModelForm,Textarea,IntegerField
 class NewImageForm(forms.ModelForm):
     class Meta:
         model=Image
-        exclude=['user','likes']
-        widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
-        }
+        exclude=['user','likes',]
+        # widgets = {
+        #     'tags': forms.CheckboxSelectMultiple(),
+        # }
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model=Comment
-        fields=('comments',)
+        exclude=['comment_image','posted_by','profile']
 
 class UpdatebioForm(forms.ModelForm):
     class Meta:

@@ -26,7 +26,7 @@ def home_images(request):
     #     pictures=Image.search(request.GET.get('search_iterm'))
     # else:
     pictures=Image.objects.all()
-
+    minecomment=Comment.objects.filter(id=current_user.id).first()
     form=NewsLetterForm
     if request.method== 'POST':
         form=NewsLetterForm(request.POST or None)
@@ -37,7 +37,7 @@ def home_images(request):
             recipient.save()
             send_welcome_email(name,email)
             HttpResponseRedirect('home_images')
-    return render(request,'index.html',{"pictures":pictures,'letterForm':form})
+    return render(request,'index.html',{"pictures":pictures,'letterForm':form,"minecomment":minecomment})
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
@@ -102,19 +102,33 @@ def user_list(request):
     context={'user_list':user_list}
     return render(request,'user_list.html',context)
 
-     
-# def search_results(request):
+@login_required(login_url='/accounts/login/')     
+def add_comment(request,image_id):
+    current_user=request.user
+    image_item=Image.objects.filter(id=image_id).first()
+    prof=Profile.objects.filter(user=current_user.id).first()
+    if request.method=='POST':
+        form=CommentForm(request.POST,request.FILES)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.posted_by=prof
+            comment.comment_image=image_item
+            comment.save()
+            return redirect('homePage')
+    else:
+        form=CommentForm()
+    return render(request,'comment_form.html',{"form":form,"image_id":image_id})
 
-#     if 'profile_pic' in request.GET and request.GET["profile_pic"]:
-#         search_iterm = request.GET.get("profile_pic")
-#         searched = Profile.search(search_iterm)
-#         message = f"{search_iterm}"
+    if 'profile_pic' in request.GET and request.GET["profile_pic"]:
+        search_iterm = request.GET.get("profile_pic")
+        searched = Profile.search(search_iterm)
+        message = f"{search_iterm}"
 
-#         return render(request, 'all_news/search.html',{"message":message,"profile": searched})
+        return render(request, 'all_news/search.html',{"message":message,"profile": searched})
 
-#     else:
-#         message = "You haven't searched for any term"
-#         return render(request, 'all_news/search.html',{"message":message})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'all_news/search.html',{"message":message})
 
 def search_results(request):
 
