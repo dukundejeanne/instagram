@@ -80,7 +80,7 @@ def image(request,id):
 @login_required(login_url='/accounts/login/')
 def profilemy(request,username=None):
     current_user=request.user
-    proc_img=Profile.objects.filter(user=current_user).first()
+    proc_img=Image.objects.filter(user=current_user).first()
     if not username:
         username=request.user.username
         images=Image.objects.filter(name=username)
