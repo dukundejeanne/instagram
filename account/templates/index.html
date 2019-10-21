@@ -18,14 +18,14 @@
         <img src="{{image.image.url}}" height="400" alt="pict" class="img-responsive" id="eachimage" >
         <div class="card-body">
           <div>
-            <a type="button" class="btn" id="like" onclick="like('{{image.id}}-url')">
-              <i class="fa fa-heart-o" >Like</i>
+            <a type="button" class="btn" href="{% url 'like' id=image.id%}" >
+              <i class="fa fa-heart-o" >{{image.likes}} Like</i>
             
             </a>
           
            
             <a href="{% url 'comment' image.id %}"><i class="fa fa-comment-o" style="color: black;"></i></a>
-            <p id="{{image.id}}-url"></p>
+            <p >{{image.likes}}</p>
           </div>
          
  <p  style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
@@ -78,12 +78,11 @@
     }
   </style>
 <!-- //from w3school  -->
-  <script>
+  <!-- <script>
 
       function like(element){
-        for (var num=1;num<=1;num++){
-          likes = document.getElementById(element);
-          likes.innerHTML=num++;
+        for (var num=1;num>=1;num++){
+          likes = document.getElementById(element).innerHTML=num++;
         }
 
         
@@ -93,5 +92,5 @@
         
       }
     
-  </script>
+  </script> -->
 {% endblock %}

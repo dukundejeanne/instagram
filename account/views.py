@@ -138,3 +138,10 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all_news/search.html',{"message":message})
+@login_required(login_url='/accounts/login/') 
+def likes(request,id):
+    likes=1
+    image=Image.objects.get(id=id)
+    image.likes=image.likes+1
+    image.save()
+    return redirect('homePage')

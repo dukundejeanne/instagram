@@ -4,10 +4,12 @@
 <html>
 
 <head>
-  <meta charset="utf-8"> {% if title %}
-  <title> Image Gallery - {{title}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"> {% if title %}
+  <title> Instargram- {{title}}</title>
   {% else %}
-  <title> The Image Gallery </title>
+  <title> Instargram </title>
   {% endif %} {% block styles %} {% bootstrap_css %}
   <link rel="stylesheet" href="{% static 'css/baseimages.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Grand+Hotel" rel="stylesheet">
