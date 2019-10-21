@@ -7,16 +7,8 @@
 
 <div class="container">
 
-  <div class="jumbotron text-center mb-0" style="background-color:white;">
+    <h1 class="h1" style="font-family: 'Grand Hotel', cursive; color:blue;font-size:70px; text-align: center;">Instagram</h1>
 
-    <h1 class="h1" style="font-family: 'Grand Hotel', cursive; color:blue;font-size:70px;">Instagram</h1>
-
-  </div>
-</div>
-
-
-
-<div class="container">
     {% for image in pictures %}
     <div class="card" style="width: 35em;margin-top:6%;margin-left: 20%;">
    
@@ -26,10 +18,11 @@
         <img src="{{image.image.url}}" height="400" alt="pict" class="img-responsive" id="eachimage" >
         <div class="card-body">
           <div>
-            <a class="like">
-              <i class="fa fa-heart-o" class="likes" readonly="readonly" value="0" name="like">Like</i>
-             
+            <a class="like" id="like">
+              <i class="fa fa-heart-o" >Like</i>
+            
             </a>
+            <input type="text" class="likes" readonly="readonly" value="0" name="like" id="li" onclick="myfunction()">
             <a href="{% url 'comment' image.id %}"><i class="fa fa-comment-o" style="color: black;"></i></a>
           </div>
          
@@ -84,7 +77,10 @@
   </style>
   <script>
 
+
     $(function(){
+      var num = 0
+      
       $(".like").click(function(){
         var input=$ (this).find('.likes');
         input.val(parseInt(input.val())+1);
@@ -92,4 +88,12 @@
     });
     
   </script>
+  <script>
+      function myFunction(){
+          var num = 0;
+          var likes = document.getElementById("li").innerHTML;
+          document.parseInt("likes")+1;
+        
+      }
+  </script> 
 {% endblock %}
