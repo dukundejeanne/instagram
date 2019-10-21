@@ -37,6 +37,10 @@ class Image(models.Model):
     def search_image(cls,search_iterm):
         pictures=cls.objects.filter(name__icontains=search_iterm)
         return pictures
+    @classmethod
+    def filter_by_name(cls,name):
+        images=Image.objects.filter(name=name)
+        return images
     # @classmethod
     # def update_description(cls, id):
     #     pictures = cls.objects.filter(id=id).update(id=id)

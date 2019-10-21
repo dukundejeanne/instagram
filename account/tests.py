@@ -14,9 +14,11 @@ class ImageTestClass(TestCase):
     '''
     def setUp(self):
 
+        self.user1 = User(username='dukunde')
+        self.user1.save()
         
-
-        self.image=Image(name='leaves',description='beautiful',user="dukunde",likes="1",post="image")
+        
+        self.image=Image(name='leaves',description='beautiful',user=self.user1,likes="1",post="image")
         self.image.save_image()
 
  
@@ -44,12 +46,11 @@ class ImageTestClass(TestCase):
         test of filter image by location
         '''
         self.image.save_image()
-        img=self.image.get_image_by_id(self.image.id)
+        img=self.image.get_id_image(self.image.id)
         image=Image.objects.get(id=self.image.d)
         self.assertTrue(img,image)
     
-
-    def test_filter_by_location(self):
+    def test_filter_by_name(self):
         '''
         test of filter image by location
         '''
@@ -57,14 +58,10 @@ class ImageTestClass(TestCase):
         img=self.image.filter_by_location(self.image.location_id)
         image=Image.objects.filter(location=self.image.location_id)
         self.assertTrue(img,image)
-        
-    def test_filter_by_name(self):
-        '''
-        test image by category
-        '''
-        self.image.save_image()
-        images=Image.search_by_category('this')
-        self.assertFalse(len(images)>0)
+   
 
 
-
+# class UserTestClass(TestCase):
+# def setUp(self):
+#         self.user = User.objects.create_user(username='testuser', password='12345')
+#         login = self.client.login(username='testuser', password='12345')
