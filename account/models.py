@@ -20,6 +20,8 @@ class Image(models.Model):
   
     def save_image(self):
         self.save()
+    def save_user(self):
+        self.save()
     def delete_image_id(cls,id):
         pictures=cls.objects.get(pk=id)
         pictures.delete()
