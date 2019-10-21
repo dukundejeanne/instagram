@@ -18,14 +18,14 @@
         <img src="{{image.image.url}}" height="400" alt="pict" class="img-responsive" id="eachimage" >
         <div class="card-body">
           <div>
-            <a type="button" class="btn" href="{% url 'like' id=image.id%}" >
-              <i class="fa fa-heart-o" >{{image.likes}} Like</i>
+            <a  class="btn" href="{% url 'like' id=image.id%}" >
+                <p >{{image.likes}} Likes <i class="fa fa-heart-o" ></i></p>
             
             </a>
           
            
             <a href="{% url 'comment' image.id %}"><i class="fa fa-comment-o" style="color: black;"></i></a>
-            <p >{{image.likes}}</p>
+           
           </div>
          
  <p  style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
