@@ -18,12 +18,14 @@
         <img src="{{image.image.url}}" height="400" alt="pict" class="img-responsive" id="eachimage" >
         <div class="card-body">
           <div>
-            <a class="like" id="like">
+            <a type="button" class="btn" id="like" onclick="like('{{image.id}}-url')">
               <i class="fa fa-heart-o" >Like</i>
             
             </a>
-            <input type="text" class="likes" readonly="readonly" value="0" name="like" id="li" onclick="myfunction()">
+          
+           
             <a href="{% url 'comment' image.id %}"><i class="fa fa-comment-o" style="color: black;"></i></a>
+            <p id="{{image.id}}-url"></p>
           </div>
          
  <p  style="font-family: sans-serif;"> Caption : {{ image.description}}</p>
@@ -75,25 +77,21 @@
       border-radius:50%;
     }
   </style>
+<!-- //from w3school  -->
   <script>
 
+      function like(element){
+        for (var num=1;num<=1;num++){
+          likes = document.getElementById(element);
+          likes.innerHTML=num++;
+        }
 
-    $(function(){
-      var num = 0
-      
-      $(".like").click(function(){
-        var input=$ (this).find('.likes');
-        input.val(parseInt(input.val())+1);
-      });
-    });
-    
-  </script>
-  <script>
-      function myFunction(){
-          var num = 0;
-          var likes = document.getElementById("li").innerHTML;
-          document.parseInt("likes")+1;
+        
+          // var num = 0;
+          
+          // document.parseInt("likes")+1;
         
       }
-  </script> 
+    
+  </script>
 {% endblock %}
